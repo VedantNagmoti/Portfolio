@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vedant Nagmoti · AI/ML + AR/VR</title>
+  <meta name="description"
+    content="Portfolio of Vedant Nagmoti – AI/ML Engineer with projects in Computer Vision, NLP, and AR/VR." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Astralab-inspired palette */
+      --bg: #0a0b10;
+      /* deep space */
+      --panel: #10121a;
+      /* card bg */
+      --muted: #9aa3b2;
+      /* text secondary */
+      --text: #e7ebf3;
+      /* text primary */
+      --brand1: #7c5cff;
+      /* violet */
+      --brand2: #4ad6ff;
+      /* cyan */
+      --brand3: #00ffa3;
+      /* mint */
+      --accent: #ffd166;
+      /* warm pop */
+      --ring: 0 0 0 2px rgba(124, 92, 255, .25), 0 0 50px 10px rgba(74, 214, 255, .08);
+      --radius: 18px;
+      --glass: rgba(255, 255, 255, .06);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(124, 92, 255, .12), transparent 60%),
+        radial-gradient(1000px 700px at 110% 10%, rgba(74, 214, 255, .12), transparent 60%),
+        linear-gradient(180deg, #07080e, #0a0b10 60%);
+      font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0b0d13
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--brand1), var(--brand2));
+      border-radius: 20px
+    }
+
+    /* Scroll progress bar */
+    .progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2), var(--brand3));
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(124, 92, 255, .7);
+    }
+
+    /* Navbar */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px) saturate(120%);
+      background: linear-gradient(180deg, rgba(16, 18, 26, .85), rgba(16, 18, 26, .6));
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px
+    }
+
+    .grid a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .2px
+    }
+
+    .orb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, var(--brand2) 50%, #5b3cff 100%);
+      box-shadow: 0 0 18px rgba(74, 214, 255, .7), 0 0 28px rgba(124, 92, 255, .4);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.25)
+      }
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 10px 12px;
+      border-radius: 12px
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .spacer {
+      flex: 1
+    }
+
+    .cta {
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      color: #060712;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      box-shadow: var(--ring);
+      border: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    /* Hero */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 70vh
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: conic-gradient(var(--brand1), var(--brand2), var(--brand3))
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: 1.02;
+      margin: 14px 0 10px;
+      letter-spacing: -.02em
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #fff, #c9d4ff 45%, #a5ffe2 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 2.4vw, 20px);
+      color: var(--muted);
+      max-width: 680px
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px
+    }
+
+    .button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--ring)
+    }
+
+    .magnet {
+      --dx: 0;
+      --dy: 0;
+      transform: translate(var(--dx), var(--dy))
+    }
+
+    .hero-art {
+      position: relative;
+      aspect-ratio: 1/1;
+      border-radius: 24px;
+      background: radial-gradient(ellipse at 20% 20%, rgba(124, 92, 255, .4), transparent 40%),
+        radial-gradient(ellipse at 80% 80%, rgba(74, 214, 255, .28), transparent 40%), var(--panel);
+      border: 1px solid rgba(255, 255, 255, .06);
+      overflow: hidden;
+      box-shadow: inset 0 0 50px rgba(124, 92, 255, .12);
+    }
+
+    .blob {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: .7
+    }
+
+    .b1 {
+      left: -40px;
+      top: -40px;
+      background: radial-gradient(circle, rgba(124, 92, 255, .85), transparent 70%);
+      animation: float1 8s ease-in-out infinite
+    }
+
+    .b2 {
+      right: -40px;
+      bottom: -40px;
+      background: radial-gradient(circle, rgba(74, 214, 255, .85), transparent 70%);
+      animation: float2 9s ease-in-out infinite
+    }
+
+    .b3 {
+      left: 40%;
+      top: 40%;
+      background: radial-gradient(circle, rgba(0, 255, 163, .6), transparent 70%);
+      animation: float3 11s ease-in-out infinite
+    }
+
+    @keyframes float1 {
+      50% {
+        transform: translate(20px, 10px)
+      }
+    }
+
+    @keyframes float2 {
+      50% {
+        transform: translate(-15px, -20px)
+      }
+    }
+
+    @keyframes float3 {
+      50% {
+        transform: translate(-10px, 15px)
+      }
+    }
+
+    .hero-bullets {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .3));
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .35);
+      border: 1px solid rgba(255, 255, 255, .08);
+      font-size: 13px
+    }
+
+    .chip .led {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand3);
+      box-shadow: 0 0 14px rgba(0, 255, 163, .8)
+    }
+
+    /* Section headers */
+    .sh {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 22px
+    }
+
+    .sh h2 {
+      font-size: clamp(22px, 3.2vw, 34px);
+      margin: 0
+    }
+
+    .bar {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, .2), transparent);
+      margin: 16px 0
+    }
+
+    /* Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    @media (max-width: 1000px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media (max-width: 680px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid rgba(255, 255, 255, .06);
+      border-radius: var(--radius);
+      overflow: hidden;
+      padding: 16px;
+      transition: transform .3s ease, box-shadow .3s ease
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--ring)
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0f1322;
+      border: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    .thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 60% at 20% -20%, rgba(124, 92, 255, .35), transparent 40%), radial-gradient(120% 60% at 120% 80%, rgba(74, 214, 255, .35), transparent 40%)
+    }
+
+    .tag {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .tag span {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
+      color: var(--muted)
+    }
+
+    .card h3 {
+      margin: 12px 0 6px;
+      font-size: 18px
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .card .links {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px
+    }
+
+    .profile-pic {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 24px;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 20px 0
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--brand2), transparent)
+    }
+
+    .tl-item {
+      position: relative;
+      padding-left: 36px;
+      margin: 22px 0
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, var(--brand1));
+      box-shadow: 0 0 24px rgba(124, 92, 255, .7)
+    }
+
+    .tl-item h4 {
+      margin: 0 0 4px
+    }
+
+    .tl-item .meta {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* Achievements list */
+    .ach {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    @media (max-width:780px) {
+      .ach {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .ach li {
+      list-style: none;
+      padding: 14px;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, .06);
+      border-radius: 14px
+    }
+
+    /* Skills chips */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      background: linear-gradient(180deg, rgba(16, 18, 26, .4), rgba(16, 18, 26, .8));
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .links {
+      display: flex;
+      gap: 10px
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .8s ease, transform .8s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2000;
+      mix-blend-mode: exclusion;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #c9d4ff 60%, #87ffe0 100%);
+      filter: blur(.2px)
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="cursor" id="cursor"></div>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="logo"><span class="orb"></span> <span>Vedant Nagmoti</span></div>
+      <nav class="spacer"></nav>
+      <nav class="menu">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact" class="cta magnet">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="section hero" id="home">
+      <div>
+        <div class="badge"><span class="dot"></span><span>AI/ML · Computer Vision · AR/VR</span></div>
+        <h1 class="gradient">Building user‑centric AI & immersive experiences</h1>
+        <p class="subtitle">I'm Vedant, an AI/ML Engineer crafting <b>Computer Vision</b>, <b>NLP</b>, and <b>AR
+            overlays</b> for real‑world impact in healthcare, finance, and interactive guides.</p>
+        <div class="hero-cta">
+          <a class="button magnet" href="https://www.linkedin.com/in/vedant-nagmoti-b6557b289/" target="_blank"
+            rel="noopener">LinkedIn ↗</a>
+          <a class="button magnet" href="https://github.com/VedantNagmoti" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="button magnet" href="#projects">See Projects ↓</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
+        <img src="profile1.1.jpg" alt="Vedant Nagmoti" class="profile-pic" />
+        <!-- <div class="hero-bullets">
+            
+           <div class="chip"><span class="led"></span> EfficientNet‑B0 Hemoglobin inference (±2.06 g/dL)</div>
+          <div class="chip"><span class="led"></span> DeepLabV3+ wall color visualizer</div>
+          <div class="chip"><span class="led"></span> AR museum & store overlays</div>
+        </div> -->
+      </div>
+    </section>
+
+    <div class="bar"></div>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="sh">
+        <h2>About</h2>
+      </div>
+      <p class="reveal">Recognized for award‑winning AI/AR innovations, I design and deploy scalable, user‑centric
+        systems—from real‑time AR guides to deep‑learning diagnostics. Currently pursuing a B.Tech in CSE (AIML) at VIT
+        Pune (CGPA 8.61; graduating May 2027).</p>
+    </section>
+
+    <!-- EXPERIENCE / TIMELINE -->
+    <section class="section" id="experience">
+      <div class="sh">
+        <h2>Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <h4>AI/AR Developer (Project‑Based) · Passion Infotech</h4>
+          <div class="meta">Aug 2025 – Present · Remote</div>
+          <p>Engineering a deep‑learning model for automated research paper quality analysis; building an AR museum
+            guide overlaying 3D models and historical context.</p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>AR Developer (Project‑Based) · Forbes Marshall</h4>
+          <div class="meta">Jul 2025 – Present · Remote</div>
+          <p>Designing a real‑time AR store locator overlaying navigation paths and product data on live camera feed.
+          </p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>Machine Learning Developer (Project‑Based) · Civora Nexus</h4>
+          <div class="meta">Jun 2025 – Aug 2025 · Remote</div>
+          <p>Developed and trained a transformer‑based NLP model to detect fake news with high accuracy.</p>
+        </div>
+        <div class="tl-item reveal">
+          <h4>AI Developer (Project‑Based) · Star Maven Digital</h4>
+          <div class="meta">Jan 2025 – Jun 2025 · Remote</div>
+          <p>Engineered an AI‑powered wall color visualizer using DeepLabV3+ (≈30% improvement in preview realism).
+            Built a Streamlit frontend for seamless user interaction.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="sh">
+        <h2>Projects</h2> <span></span>
+      </div>
+      <div class="grid">
+        <!-- HemoScan -->
+        <article class="card reveal">
+          <div class="thumb" role="img" aria-label="HemoScan visualization">
+            <!-- Inline SVG placeholder illustration -->
+            <img src="hemoscan.png" alt="hemoscan" position: absolute height="100%" width="100%">
+          </div>
+          <h3>HemoScan</h3>
+          <p>Deep learning pipeline (EfficientNet‑B0) predicting Hemoglobin from nail images; aggregated multi‑crop per
+            patient achieving ±2.06 g/dL error.</p>
+          <div class="tag"><span>Python</span><span>PyTorch</span><span>OpenCV</span><span>scikit‑learn</span></div>
+          <div class="links">
+            <!-- Add real repo/demo when available -->
+            <a class="button" href="#contact">Request Demo</a>
+          </div>
+        </article>
+
+        <!-- AR Wardrobe -->
+        <article class="card reveal">
+          <div class="thumb" role="img" aria-label="AR Wardrobe">
+            <img src="arwardrobe.png" alt="hemoscan" position: absolute height="100%" width="100%">
+          </div>
+          <h3>AR Wardrobe</h3>
+          <p>AR virtual try‑on with full‑body skeleton overlay for accurate fitting; Flask backend for size predictions.
+          </p>
+          <div class="tag"><span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>Flask</span></div>
+          <div class="links">
+            <a class="button" href="#contact">Request Demo</a>
+          </div>
+        </article>
+
+        <!-- Deforestation Analyzer -->
+        <article class="card reveal">
+          <div class="thumb" role="img" aria-label="Deforestation and Tree Count Analyzer">
+            <img src="deforestation.png" alt="hemoscan" position: absolute height="100%" width="100%">
+          </div>
+          <h3>Deforestation & Tree Count Analyzer</h3>
+          <p>U‑Net model analyzing satellite imagery with NDVI to enhance vegetation detection and track temporal forest
+            change.</p>
+          <div class="tag"><span>TensorFlow</span><span>U‑Net</span><span>NDVI</span><span>OpenCV</span></div>
+          <div class="links">
+            <a class="button" href="https://github.com/VedantNagmoti/Tree-Count-Prediction-and-Deforestation-Detection"
+              target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <div class="sh">
+        <h2>Achievements</h2>
+      </div>
+      <ul class="ach">
+        <li class="reveal">🥇 First Prize – IEEE CIS Ideathon 2025 (AI in Rural Health)</li>
+        <li class="reveal">🏆 Best Solution – InnovateYou Techathon 2.0 (AR/VR Virtual Try‑On System)</li>
+        <li class="reveal">🥈 Second Prize – Impetus International Project Competition 2025 (AR Wardrobe)</li>
+        <li class="reveal">🎤 Showcased AR Wardrobe at IIC Innovation Forum</li>
+      </ul>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="sh">
+        <h2>Skills</h2>
+      </div>
+      <div class="chips reveal">
+        <span class="chip"><span class="led"></span>Python</span>
+        <span class="chip"><span class="led"></span>Java</span>
+        <span class="chip"><span class="led"></span>C</span>
+        <span class="chip"><span class="led"></span>JavaScript</span>
+        <span class="chip"><span class="led"></span>SQL / MySQL</span>
+        <span class="chip"><span class="led"></span>PyTorch</span>
+        <span class="chip"><span class="led"></span>TensorFlow</span>
+        <span class="chip"><span class="led"></span>OpenCV</span>
+        <span class="chip"><span class="led"></span>scikit‑learn</span>
+        <span class="chip"><span class="led"></span>NumPy</span>
+        <span class="chip"><span class="led"></span>Pandas</span>
+        <span class="chip"><span class="led"></span>Matplotlib</span>
+        <span class="chip"><span class="led"></span>Flask</span>
+        <span class="chip"><span class="led"></span>Django</span>
+        <span class="chip"><span class="led"></span>Streamlit</span>
+        <span class="chip"><span class="led"></span>Git / GitHub</span>
+        <span class="chip"><span class="led"></span>Arduino IDE</span>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="section" id="certifications">
+      <div class="sh">
+        <h2>Certifications</h2>
+      </div>
+      <div class="grid">
+        <a href="https://coursera.org/share/c4b71b5b5df12c162ab1bc2405cc2a36">
+          <div class="card reveal">
+            <h3>Meta – Web Development Fundamentals</h3>
+            <p class="muted">Coursera · Jul 2025</p>
+          </div>
+        </a>
+        <a href="https://coursera.org/share/cd33bdec737af7e249a7801b026c56df">
+          <div class="card reveal">
+            <h3>Meta – Django Web Framework</h3>
+            <p>Coursera · Jul 2025</p>
+          </div>
+        </a>
+        <a href="https://coursera.org/share/fb40e1df4bb21b1de28b353ce471d35d">
+          <div class="card reveal">
+            <h3>Meta – Intro to Front‑End Development</h3>
+            <p>Coursera · Jun 2025</p>
+          </div>
+        </a>
+        <a href="https://coursera.org/share/05fc03f147577199e08678af29a437d3">
+          <div class="card reveal">
+            <h3>DeepLearning.AI – NLP in TensorFlow</h3>
+            <p>Coursera · Jun 2025</p>
+          </div>
+        </a>
+        <a href="https://coursera.org/share/ed99a59bf646375e863995286db58cba">
+          <div class="card reveal">
+            <h3>IBM – Generative AI: Prompt Engineering Basics</h3>
+            <p>Coursera · May 2025</p>
+          </div>
+        </a>
+        <a href="">
+          <div class="card reveal">
+            <h3>Infosys SpringBoard – Master Computer Vision OpenCV3</h3>
+            <p>Feb 2025</p>
+          </div>
+        </a>
+        <a href="https://coursera.org/share/bb85a59dc2be4e33d4e8a17dd8618395">
+          <div class="card reveal">
+            <h3>Meta – Intro to Databases for Back‑End Development</h3>
+            <p>Coursera · Jul 2025</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="sh">
+        <h2>Contact</h2>
+      </div>
+      <div class="grid">
+        <div class="card reveal">
+          <h3>Let’s collaborate</h3>
+          <p>Open to internships and project‑based roles in AI/ML, Computer Vision, and AR/VR. Reach out for demos,
+            collabs, or speaking.</p>
+          <div class="links">
+            <a class="button magnet" href="mailto:vedantnagmoti123@gmail.com">Email me</a>
+            <a class="button magnet" href="tel:+918999202481">Call</a>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h3>Links</h3>
+          <div class="links">
+            <a class="button" href="https://github.com/VedantNagmoti" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="button" href="https://www.linkedin.com/in/vedant-nagmoti-b6557b289/" target="_blank"
+              rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="y"></span> Vedant Nagmoti · Built with HTML/CSS/JS</div>
+      <div class="links">
+        <a class="button" href="#home">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll progress
+    const pr = document.getElementById('progress');
+    const onScroll = () => {
+      const s = window.scrollY; const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = Math.max(0, Math.min(1, s / h));
+      pr.style.transform = `scaleX(${p})`;
+    }; onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href'); if (id.length < 2) return;
+        e.preventDefault(); document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); })
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal, .card').forEach(el => io.observe(el));
+
+    // Magnetic buttons
+    document.querySelectorAll('.magnet').forEach(btn => {
+      const st = btn.style;
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) * .15;
+        const dy = (e.clientY - (r.top + r.height / 2)) * .15;
+        st.setProperty('--dx', dx + 'px'); st.setProperty('--dy', dy + 'px');
+      });
+      btn.addEventListener('mouseleave', () => { st.setProperty('--dx', '0px'); st.setProperty('--dy', '0px'); });
+    });
+
+    // Custom cursor
+    const cur = document.getElementById('cursor');
+    window.addEventListener('pointermove', (e) => {
+      cur.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`;
+    });
+
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
